@@ -26,8 +26,8 @@ export default function App() {
           Welcome
         </Link>
         <Link to="/app/additional">Additional page</Link>
-        <Link to="/app/settings">Settings</Link>
-        <Link to="/app/payments">Payments(Comming soon...)</Link>
+        {/* <Link to="/app/settings">Settings</Link>
+        <Link to="/app/payments">Payments(Comming soon...)</Link> */}
       </NavMenu>
       <Outlet />
     </AppProvider>

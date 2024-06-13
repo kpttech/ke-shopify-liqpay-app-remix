@@ -10,7 +10,7 @@ generator client {
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "mongodb"
-  url      =  env("SECRETS_DB")
+  url      =  env("SECRETS_DB") + "/shopify-liqpay-app-db"
 }
 
 model Session {

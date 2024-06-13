@@ -28,7 +28,7 @@ const shopify = shopifyApp({
     ORDERS_CREATE:
     {
       deliveryMethod: DeliveryMethod.Http,
-      callbackUrl: "https://pay.karpaty.energy/api/swh/order",
+      callbackUrl: "/webhooks",
     }
   },
   hooks: {

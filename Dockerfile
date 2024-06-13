@@ -6,6 +6,7 @@ WORKDIR /app
 COPY . .
 
 ENV NODE_ENV=production
+ENV SCOPES="write_products,write_orders,read_orders"
 
 RUN npm install --omit=dev
 # Remove CLI packages since we don't need them in production by default.

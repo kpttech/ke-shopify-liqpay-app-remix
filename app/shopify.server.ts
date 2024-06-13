@@ -28,7 +28,7 @@ const shopify = shopifyApp({
     ORDERS_CREATE:
     {
       deliveryMethod: DeliveryMethod.Http,
-      callbackUrl: "/webhooks",
+      callbackUrl: process.env.ORDERS_WEBHOOK_URL,
     }
   },
   hooks: {

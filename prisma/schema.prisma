@@ -10,14 +10,19 @@ generator client {
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "mongodb"
-  url      =  env("SECRETS_DB") + "/shopify-liqpay-app-db"
+  url      =  env("SECRETS_DB")
 }
 
 model Session {
   session_id  String    @id @default(auto()) @map("_id") @db.ObjectId
   id          String    @unique
-  shop          String
-  accessToken   String
+  shop        String
+  state       String
+  isOnline    Boolean   @default(false)
+  scope       String?
+  expires     DateTime?
+  accessToken String
+  userId      BigInt?
   liqPayPublicKey      String?
   liqPayPrivateKey     String?
 }

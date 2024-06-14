@@ -30,6 +30,6 @@ model Session {
   locale      String?
   collaborator  Boolean
   emailVerified Boolean
-  liqPayPublicKey      String?
-  liqPayPrivateKey     String?
+  liqPayPublicKey            String?  @default("Your LiqPay Public Key")
+  liqPayPrivateKey           String?  @default("Your LiqPay Private Key")
 }

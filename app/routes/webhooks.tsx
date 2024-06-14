@@ -16,11 +16,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         await db.session.deleteMany({ where: { shop } });
       }
       break;
-
-    case "ORDERS_CREATE":
-      console.log("ORDERS_CREATE event");
-      console.log(shop);
-      break;
     
     case "CUSTOMERS_DATA_REQUEST":
     case "CUSTOMERS_REDACT":

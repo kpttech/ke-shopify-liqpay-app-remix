@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Card,
@@ -7,10 +8,67 @@ import {
   Page,
   Text,
   BlockStack,
+  TextField,
+  PageActions,
 } from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
 
-export default function SettingsPage() {
+import {
+  useActionData,
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+  useNavigate,
+} from "@remix-run/react";
+
+import { json, redirect } from "@remix-run/node";
+import { TitleBar } from "@shopify/app-bridge-react";
+import { authenticate } from "../shopify.server";
+import { getPayConfig, validatePayConfig, postPayConfig } from "../config.server";
+
+export async function loader({ request }) {
+  const { admin } = await authenticate.admin(request);
+  return json(await getPayConfig({data: admin.rest.session}));
+}
+
+export async function action({ request }) {
+  const { session } = await authenticate.admin(request);
+  /** @type {any} */
+  const data = {
+    ...Object.fromEntries(await request.formData()),
+    session,
+  };
+
+  const errors = validatePayConfig(data);
+  if (errors) {
+    return json({ errors }, { status: 422 });
+  }
+
+  await postPayConfig(data);
+  return redirect("/app/settings");
+}
+
+export default function ConfigForm() {
+  const errors = useActionData()?.errors || {};
+  const config = useLoaderData();
+  const [formState, setFormState] = useState(config);
+  const [cleanFormState, setCleanFormState] = useState(config);
+  const isDirty = JSON.stringify(formState) !== JSON.stringify(cleanFormState);
+
+  const nav = useNavigation();
+  const isSaving =
+    nav.state === "submitting" && nav.formData?.get("action") !== "delete";
+  const navigate = useNavigate();
+
+  const submit = useSubmit();
+  function handleSave() {
+    const data = {
+      liqPayPublicKey: formState.liqPayPublicKey,
+      liqPayPrivateKey: formState.liqPayPrivateKey,
+    };
+
+    setCleanFormState({ ...formState });
+    submit(data, { method: "post" });
+  }
   return (
     <Page>
       <TitleBar title="Settings" />
@@ -18,27 +76,39 @@ export default function SettingsPage() {
         <Layout.Section>
           <Card>
             <BlockStack gap="300">
-              <Text as="p" variant="bodyMd">
-                The app template comes with an additional page which
-                demonstrates how to create multiple pages within app navigation
-                using{" "}
-                <Link
-                  url="https://shopify.dev/docs/apps/tools/app-bridge"
-                  target="_blank"
-                  removeUnderline
-                >
-                  App Bridge
-                </Link>
-                .
-              </Text>
-              <Text as="p" variant="bodyMd">
-                To create your own page and have it show up in the app
-                navigation, add a page inside <Code>app/routes</Code>, and a
-                link to it in the <Code>&lt;NavMenu&gt;</Code> component found
-                in <Code>app/routes/app.jsx</Code>.
-              </Text>
+              <Text as={"h2"} variant="headingLg">
+                  LiqPay Public Key
+                </Text>
+                <TextField
+                  id="liqPayPublicKey"
+                  helpText="Can be found at LiqPay personal cabinet"
+                  label="title"
+                  labelHidden
+                  autoComplete="off"
+                  value={formState.liqPayPublicKey}
+                  onChange={(liqPayPublicKey) => setFormState({ ...formState, liqPayPublicKey })}
+                  error={errors.title}
+                />
+                <TextField
+                  id="liqPayPrivateKey"
+                  helpText="Can be found at LiqPay personal cabinet"
+                  label="title"
+                  labelHidden
+                  autoComplete="off"
+                  value={formState.liqPayPrivateKey}
+                  onChange={(liqPayPrivateKey) => setFormState({ ...formState, liqPayPrivateKey })}
+                  error={errors.title}
+                />
             </BlockStack>
           </Card>
+          <PageActions
+            primaryAction={{
+              content: "Save",
+              loading: isSaving,
+              disabled: !isDirty || isSaving,
+              onAction: handleSave,
+            }}
+          />
         </Layout.Section>
         <Layout.Section variant="oneThird">
           <Card>
@@ -62,22 +132,5 @@ export default function SettingsPage() {
         </Layout.Section>
       </Layout>
     </Page>
-  );
-}
-
-function Code({ children }: { children: React.ReactNode }) {
-  return (
-    <Box
-      as="span"
-      padding="025"
-      paddingInlineStart="100"
-      paddingInlineEnd="100"
-      background="bg-surface-active"
-      borderWidth="025"
-      borderColor="border"
-      borderRadius="100"
-    >
-      <code>{children}</code>
-    </Box>
   );
 }

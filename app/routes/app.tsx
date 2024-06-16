@@ -25,7 +25,6 @@ export default function App() {
         <Link to="/app" rel="home">
           Welcome
         </Link>
-        <Link to="/app/additional">Additional page</Link>
         <Link to="/app/settings">Settings</Link>
         <Link to="/app/payments">Payments(Comming soon...)</Link>
       </NavMenu>

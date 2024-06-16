@@ -82,8 +82,7 @@ export default function ConfigForm() {
                 <TextField
                   id="liqPayPublicKey"
                   helpText="Can be found at LiqPay personal cabinet"
-                  label="title"
-                  labelHidden
+                  label="Public key"
                   autoComplete="off"
                   value={formState.liqPayPublicKey}
                   onChange={(liqPayPublicKey) => setFormState({ ...formState, liqPayPublicKey })}
@@ -92,8 +91,7 @@ export default function ConfigForm() {
                 <TextField
                   id="liqPayPrivateKey"
                   helpText="Can be found at LiqPay personal cabinet"
-                  label="title"
-                  // labelHidden
+                  label="Private key"
                   autoComplete="off"
                   value={formState.liqPayPrivateKey}
                   onChange={(liqPayPrivateKey) => setFormState({ ...formState, liqPayPrivateKey })}

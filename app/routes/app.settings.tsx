@@ -77,7 +77,7 @@ export default function ConfigForm() {
           <Card>
             <BlockStack gap="300">
               <Text as={"h2"} variant="headingLg">
-                  LiqPay Public Key
+                  LiqPay connection configuration
                 </Text>
                 <TextField
                   id="liqPayPublicKey"
@@ -93,7 +93,7 @@ export default function ConfigForm() {
                   id="liqPayPrivateKey"
                   helpText="Can be found at LiqPay personal cabinet"
                   label="title"
-                  labelHidden
+                  // labelHidden
                   autoComplete="off"
                   value={formState.liqPayPrivateKey}
                   onChange={(liqPayPrivateKey) => setFormState({ ...formState, liqPayPrivateKey })}
@@ -109,26 +109,6 @@ export default function ConfigForm() {
               onAction: handleSave,
             }}
           />
-        </Layout.Section>
-        <Layout.Section variant="oneThird">
-          <Card>
-            <BlockStack gap="200">
-              <Text as="h2" variant="headingMd">
-                Resources
-              </Text>
-              <List>
-                <List.Item>
-                  <Link
-                    url="https://shopify.dev/docs/apps/design-guidelines/navigation#app-nav"
-                    target="_blank"
-                    removeUnderline
-                  >
-                    App nav best practices
-                  </Link>
-                </List.Item>
-              </List>
-            </BlockStack>
-          </Card>
         </Layout.Section>
       </Layout>
     </Page>

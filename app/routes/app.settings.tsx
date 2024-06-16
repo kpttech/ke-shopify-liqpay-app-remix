@@ -92,6 +92,7 @@ export default function ConfigForm() {
                   id="liqPayPrivateKey"
                   helpText="Can be found at LiqPay personal cabinet"
                   label="Private key"
+                  type="password"
                   autoComplete="off"
                   value={formState.liqPayPrivateKey}
                   onChange={(liqPayPrivateKey) => setFormState({ ...formState, liqPayPrivateKey })}

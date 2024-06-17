@@ -38,13 +38,13 @@ export default function App() {
         )}
         <ul className={styles.list}>
           <li>
-            <strong>Secured</strong>. All your data is protected and fully secured.
+            Creates LiqPay invoice when new order is created.
           </li>
           <li>
-            <strong>Automatic orders update</strong>. Captures success payments transactions back to your order.
+            Captures success payments transactions back to your order.
           </li>
           <li>
-            <strong>Easy setup</strong>. It takes just 30 seconds to set up payments.
+            All your data is protected and fully secured.
           </li>
         </ul>
       </div>

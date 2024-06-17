@@ -7,7 +7,6 @@ COPY . .
 
 ENV NODE_ENV=production
 ENV SCOPES="read_orders,write_orders"
-ENV ORDERS_WEBHOOK_URL="https://pay.karpaty.energy/api/swh/order"
 
 RUN npm install --omit=dev
 # Remove CLI packages since we don't need them in production by default.

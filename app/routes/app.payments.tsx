@@ -19,7 +19,7 @@ export default function PaymentsPage() {
           <Card>
             <BlockStack gap="300">
               <Text as="p" variant="bodyMd">
-                LiqPay payment requests and transactions are comming soon...
+                LiqPay payment requests and transactions lists are comming soon...
               </Text>
             </BlockStack>
           </Card>

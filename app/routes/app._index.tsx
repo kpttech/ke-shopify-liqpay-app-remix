@@ -82,7 +82,12 @@ export default function Index() {
                     IMPORTANT INFORMATION!
                   </Text>
                   <Text variant="bodyMd" as="p">
-                    In order to use application, go to admin settings and add manual payment method with name <b>LiqPay</b>.
+                    In order to use application, go to admin settings then Payments tab. Scroll down to Manual payment methods and add custom payment method. Use 
+                    <ul>
+                      <li><b>LiqPay</b> as custom payment method name. THIS IS MUST BE DONE STEP!</li>
+                      <li><b>Pay online with our payment URL</b> as Additional details</li>
+                      <li><b>We will send you a message with a link for a payment shortly</b> as Payment instruction</li>
+                    </ul>
                   </Text>
                 </BlockStack>
               </BlockStack>
